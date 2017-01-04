@@ -8,9 +8,9 @@ Ainsi, le problème devient : comment choisir les $k$ premières questions à pr
 
 Pour mieux comprendre notre approche, voici une interprétation géométrique de ce qu'il se passe lorsqu'un test adaptatif multidimensionnel est administré.
 
-Pour rappel, la phase d'apprentissage du modèle GenMA de dimension $K$ consiste à déterminer les caractéristiques $\mathbf{d_j} = (d_{j1}, \ldots, d_{jK})$ et $\delta_j$ de chaque question $j$ et les caractéristiques $\mathbf{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$ de chaque apprenant $i$. La probabilité qu'un apprenant $i$ réponde correctement à une question $j$ est ensuite donnée par l'expression $\Phi(\mathbf{\theta_i} \cdot \mathbf{d_j})$. Pour visualiser, on peut représenter les questions par des points à coordonnées $(d_{j1}, \ldots, d_{jK})$ pour chaque $j$ et l'apprenant $i$ par le vecteur $\mathbf{\theta_i}$. Les questions qui ont le plus de chances d'être résolues par l'apprenant correspondent aux points qui se trouvent le plus dans la direction de $\mathbf{\theta_i}$.
+Pour rappel, la phase d'apprentissage du modèle GenMA de dimension $K$ consiste à déterminer les caractéristiques $\boldsymbol{d_j} = (d_{j1}, \ldots, d_{jK})$ et $\delta_j$ de chaque question $j$ et les caractéristiques $\boldsymbol{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$ de chaque apprenant $i$. La probabilité qu'un apprenant $i$ réponde correctement à une question $j$ est ensuite donnée par l'expression $\Phi(\boldsymbol{\theta_i} \cdot \boldsymbol{d_j})$. Pour visualiser, on peut représenter les questions par des points à coordonnées $(d_{j1}, \ldots, d_{jK})$ pour chaque $j$ et l'apprenant $i$ par le vecteur $\boldsymbol{\theta_i}$. Les questions qui ont le plus de chances d'être résolues par l'apprenant correspondent aux points qui se trouvent le plus dans la direction de $\boldsymbol{\theta_i}$.
 
-Ainsi, poser un jeu de $k$ questions revient à choisir $k$ points de l'espace à présenter à l'apprenant, ce qui permettra après étiquetage par succès/échec en fonction de ses réponses de déterminer une première estimation de son vecteur de niveau $\mathbf{\theta}$.
+Ainsi, poser un jeu de $k$ questions revient à choisir $k$ points de l'espace à présenter à l'apprenant, ce qui permettra après étiquetage par succès/échec en fonction de ses réponses de déterminer une première estimation de son vecteur de niveau $\boldsymbol{\theta}$.
 
 Pour estimer les caractéristiques de l'apprenant, on souhaite choisir l'estimateur du maximum de vraisemblance. Mais si les réponses que l'apprenant a faites jusque-là sont toutes correctes ou toutes incorrectes, l'estimateur tend vers $\pm \infty$ et il faut choisir un autre estimateur. Ce problème avait déjà été mis en évidence par @Lan2014 et par @Magis2015.
 
@@ -52,16 +52,16 @@ K(\mathbf{x_i}, \mathbf{x_j}) = \exp\left(-\frac{{||\mathbf{x_i} - \mathbf{x_j}|
 
 \newacronym{ppd}{PPD}{processus à point déterminantal}
 
-Formellement, $P$ est un \gls{ppd} s'il vérifie pour tout ensemble $Y \subset \{1, \ldots, n\}$ :
+Formellement, un processus stochastique $Y \subset \{1, \ldots, n\}$ est un \gls{ppd} s'il vérifie pour tout ensemble $A \subset \{1, \ldots, n\}$ :
 
 \begin{equation}
-Pr(Y \subset X) \propto \det L_Y
+Pr(A \subset Y) \propto \det L_A
 \end{equation}
 
 \noindent
-où $L_Y$ est la sous-matrice carrée de $L$ indexée par les éléments de $Y$ en ligne et colonne.
+où $L_A$ est la sous-matrice carrée de $L$ indexée par les éléments de $A$ en ligne et colonne.
 
-Dans notre cas, cette loi est intéressante car des éléments seront tirés avec une probabilité proportionnelle au carré du volume du parallélotope qu'ils forment. En effet, chaque élément $L_{ij}$ de la matrice $L$ vaut $L_{ij} = K(\mathbf{x_i}, \mathbf{x_j}) = \mathbf{x_i} \cdot \mathbf{x_j}$ donc si on note $B$ la matrice ayant pour lignes $\mathbf{x_1}, \ldots, \mathbf{x_n}$, on a $L = B B^T$. Si à présent on note $B_Y$ la matrice ayant pour lignes les vecteurs $\mathbf{x_i}$ pour $i$ appartenant à $Y$, $L_Y = B_Y B_Y^T$ et donc $Pr(Y \subset X) \propto \det L_Y = \det B_Y B_Y^T = {Vol(\{\mathbf{x_i}\}_{i \in Y})}^2.$
+Dans notre cas, cette loi est intéressante car des éléments seront tirés avec une probabilité proportionnelle au carré du volume du parallélotope qu'ils forment. En effet, chaque élément $L_{ij}$ de la matrice $L$ vaut $L_{ij} = K(\mathbf{x_i}, \mathbf{x_j}) = \mathbf{x_i} \cdot \mathbf{x_j}$ donc si on note $B$ la matrice ayant pour lignes $\mathbf{x_1}, \ldots, \mathbf{x_n}$, on a $L = B B^T$. Si à présent on note $B_A$ la matrice ayant pour lignes les vecteurs $\mathbf{x_i}$ pour $i$ appartenant à $A$, $L_A = B_A B_A^T$ et donc $Pr(A \subset Y) \propto \det L_A = \det B_A B_A^T = {Vol(\{\mathbf{x_i}\}_{i \in A})}^2.$
 
 Or, plus le volume d'un ensemble de vecteurs est grand, moins ces vecteurs sont corrélés. Ainsi, des éléments diversifiés auront plus de chances d'être tirés par un PPD. On peut encore le voir de la façon suivante : des vecteurs de questions similaires apportent une information similaire. Afin d'avoir le plus d'information possible au début du test il vaut mieux choisir des vecteurs écartés deux à deux.
 
@@ -73,9 +73,9 @@ Un autre avantage de cette méthode est que le choix de $k$ questions est probab
 
 Notre contribution consiste à appliquer la méthode de tirage d'éléments diversifiés selon un PPD au choix de questions diversifiées au début d'un test, de façon automatique.
 
-Étant donné des données d'apprenants $D$ correspondant à des succès et échecs de $m$ apprenants sur $n$ questions, et une q-matrice de taille $n \times K$, on calibre un modèle GenMA. On extrait donc des caractéristiques en dimension $K$ pour chacune des $n$ questions du test : chaque question $j$ a pour caractéristiques le vecteur $\mathbf{d_j} = (d_{j1}, \ldots, d_{jK})$.
+Étant donné des données d'apprenants $D$ correspondant à des succès et échecs de $m$ apprenants sur $n$ questions, et une q-matrice de taille $n \times K$, on calibre un modèle GenMA. On extrait donc des caractéristiques en dimension $K$ pour chacune des $n$ questions du test : chaque question $j$ a pour caractéristiques le vecteur $\boldsymbol{d_j} = (d_{j1}, \ldots, d_{jK})$.
 
-La stratégie InitialD consiste à considérer les questions $X = \{1, \ldots, n\}$ et pour chaque question $j$ les caractéristiques $\mathbf{d_j} = (d_{j1}, \ldots, d_{jK})$. Le noyau choisi est le noyau linéaire : $K(\mathbf{d_i}, \mathbf{d_j}) = \mathbf{d_i} \cdot \mathbf{d_j}$, et nous cherchons à tirer $k$ questions parmi les $n$ selon un PPD. Nous faisons l'hypothèse que les questions ainsi choisies seront peu redondantes, donc constitueront un bon résumé des questions du test pour l'apprenant.
+La stratégie InitialD consiste à considérer les questions $X = \{1, \ldots, n\}$ et pour chaque question $j$ les caractéristiques $\boldsymbol{d_j} = (d_{j1}, \ldots, d_{jK})$. Le noyau choisi est le noyau linéaire : $K(\mathbf{d_i}, \boldsymbol{d_j}) = \mathbf{d_i} \cdot \boldsymbol{d_j}$, et nous cherchons à tirer $k$ questions parmi les $n$ selon un PPD. Nous faisons l'hypothèse que les questions ainsi choisies seront peu redondantes, donc constitueront un bon résumé des questions du test pour l'apprenant.
 
 L'algorithme de tirage est tiré de [@Kulesza2012] et est implémenté en Python. Sa complexité est $O(nk^3)$ où $k$ est le nombre de questions sélectionnées et $n$ est le nombre de questions du test, après une coûteuse étape de diagonalisation de complexité $O(n^3)$. Ainsi, cette complexité convient à une grande base de questions comme peut l'être celle sur un MOOC, car l'étape de tirage est linéaire en le nombre de questions de la banque.
 
@@ -109,7 +109,7 @@ Pour les jeux de données Fraction et TIMSS, grâce aux q-matrices et au modèle
 
 ## Protocole expérimental
 
-Notre protocole est similaire à celui développé pour la comparaison de modèles de tests adaptatifs à la section \vref{comp-cat}, à l'exception d'une méthode \textsc{FirstBundle} qui prend en argument la stratégie $S$ choisie, le nombre de questions à poser $k$, les caractéristiques des questions $(\mathbf{d_j})_{j = 1, \ldots, n}$ et $(\delta_j)_{j = 1, \ldots, n}$, les caractéristiques initiales de l'apprenant $\mathbf{\theta} = (0, \ldots, 0) \in \R^K$ et renvoie un ensemble $Y$ de $k$ questions à poser à l'apprenant. Contrairement au chapitre précédent, ici nous ne comparons plus des modèles différents mais des stratégies différentes pour le même modèle GenMA.
+Notre protocole est similaire à celui développé pour la comparaison de modèles de tests adaptatifs à la section \vref{comp-cat}, à l'exception d'une méthode \textsc{FirstBundle} qui prend en argument la stratégie $S$ choisie, le nombre de questions à poser $k$, les caractéristiques des questions $(\boldsymbol{d_j})_{j = 1, \ldots, n}$ et $(\delta_j)_{j = 1, \ldots, n}$, les caractéristiques initiales de l'apprenant $\boldsymbol{\theta} = (0, \ldots, 0) \in \R^K$ et renvoie un ensemble $Y$ de $k$ questions à poser à l'apprenant. Contrairement au chapitre précédent, ici nous ne comparons plus des modèles différents mais des stratégies différentes pour le même modèle GenMA.
 
 Nous séparons les apprenants en deux ensembles d'entraînement et de test (80 % et 20 %) et calibrons le modèle GenMA avec les apprenants d'entraînement. Puis, pour chaque apprenant de test, nous choisissons $k$ premières questions à poser, récoltons ses réponses et estimons son vecteur de niveau (voir algorithme \ref{simu-pretest}).
 
@@ -128,15 +128,15 @@ Quelle est la différence entre le paramètre estimé à partir de $k$ questions
 \begin{algorithm}
 \begin{algorithmic}
 \Procedure{SimulatePretest}{stratégie $S$, $I_{train}$, $I_{test}$}
-\State $(\mathbf{d_j})_j, (\delta_j)_j \gets \Call{TrainingStep}{D[I_{train}]}$
+\State $(\boldsymbol{d_j})_j, (\delta_j)_j \gets \Call{TrainingStep}{D[I_{train}]}$
 \For{tout apprenant $s$ de l'ensemble $I_{test}$}
     \For{$k$ de 1 à $n$}
         \State $\theta \gets \Call{PriorInitialization}$
-        \State $Y \gets \Call{FirstBundle}{S, k, (\mathbf{d_j})_j, (\delta_j)_j, \theta}$
+        \State $Y \gets \Call{FirstBundle}{S, k, (\boldsymbol{d_j})_j, (\delta_j)_j, \theta}$
         \State Poser les questions $Y$ à l'apprenant $s$
         \State Récupérer les valeurs de succès ou échec correspondantes $(r_i)_{i \in Y}$ de ses réponses
         \State $\theta \gets \Call{EstimateParameters}{\{(i, r_i)\}_{i \in Y}, \theta}$
-        \State $p \gets$ \Call{PredictPerformance}{$\theta, (\mathbf{d_j})_{j}$}
+        \State $p \gets$ \Call{PredictPerformance}{$\theta, (\boldsymbol{d_j})_{j}$}
         \State $\sigma_k \gets$ \Call{EvaluatePerformance}{$p, D[s], \theta$}
     \EndFor
 \EndFor
@@ -164,10 +164,10 @@ Les résultats sont donnés dans les figures \ref{initiald-timss-mean} à \ref
 \centering
 \begin{tabular}{cccc} \toprule
 & Après 3 questions & Après 12 questions & Après 20 questions\\ \midrule
-CAT & $1.081 \pm 0.047$ (62 \%) & $0.875 \pm 0.05$ (66 \%) & $0.603 \pm 0.041$ (75 \%)\\
-Uncertainty & $1.098 \pm 0.048$ (58 \%) & $0.981 \pm 0.046$ (68 \%) & $0.714 \pm 0.048$ (72 \%)\\
-InitialD & $\mathbf{0.793 \pm 0.034}$ (61 \%) & $\mathbf{0.582 \pm 0.023}$ (70 \%) & $\mathbf{0.494 \pm 0.015}$ (74 \%)\\
-Random & $1.019 \pm 0.05$ (58 \%) & $0.705 \pm 0.035$ (68 \%) & $\mathbf{0.512 \pm 0.017}$ (74 \%)\\ \bottomrule
+CAT & $1,081 \pm 0,047$ (62 \%) & $0,875 \pm 0,05$ (66 \%) & $0,603 \pm 0,041$ (75 \%)\\
+Uncertainty & $1,098 \pm 0,048$ (58 \%) & $0,981 \pm 0,046$ (68 \%) & $0,714 \pm 0,048$ (72 \%)\\
+InitialD & $\mathbf{0,793 \pm 0,034}$ (61 \%) & $\mathbf{0,582 \pm 0,023}$ (70 \%) & $\mathbf{0,494 \pm 0,015}$ (74 \%)\\
+Random & $1,019 \pm 0,05$ (58 \%) & $0,705 \pm 0,035$ (68 \%) & $\mathbf{0,512 \pm 0,017}$ (74 \%)\\ \bottomrule
 \end{tabular}
 \caption{Valeurs de \emph{log loss} obtenues pour le jeu de données TIMSS.}
 \label{initiald-timss-mean-table}
@@ -189,10 +189,10 @@ Dès la première question, InitialD a une meilleure performance. C'est parce qu
 \centering
 \begin{tabular}{cccc} \toprule
 & Après 3 questions & Après 12 questions & Après 20 questions\\ \midrule
-CAT & $1.894 \pm 0.05$ & $1.224 \pm 0.046$ & $\mathbf{0.464 \pm 0.055}$\\
-Uncertainty & $1.937 \pm 0.049$ & $1.48 \pm 0.047$ & $0.629 \pm 0.062$\\
-InitialD & $1.845 \pm 0.051$ & $\mathbf{0.972 \pm 0.039}$ & $\mathbf{0.465 \pm 0.034}$\\
-Random & $1.936 \pm 0.052$ & $1.317 \pm 0.048$ & $0.59 \pm 0.043$\\ \bottomrule
+CAT & $1,894 \pm 0,05$ & $1,224 \pm 0,046$ & $\mathbf{0,464 \pm 0,055}$\\
+Uncertainty & $1,937 \pm 0,049$ & $1,48 \pm 0,047$ & $0,629 \pm 0,062$\\
+InitialD & $1,845 \pm 0,051$ & $\mathbf{0,972 \pm 0,039}$ & $\mathbf{0,465 \pm 0,034}$\\
+Random & $1,936 \pm 0,052$ & $1,317 \pm 0,048$ & $0,59 \pm 0,043$\\ \bottomrule
 \end{tabular}
 \caption{Distances au diagnostic final obtenues pour le jeu de données TIMSS.}
 \label{initiald-timss-delta-table}
@@ -214,10 +214,10 @@ Dans la figure \ref{initiald-timss-delta}, on voit que InitialD converge plus v
 \centering
 \begin{tabular}{cccc} \toprule
 & Après 3 questions & Après 8 questions & Après 15 questions\\ \midrule
-CAT & $0.757 \pm 0.082$ (67 \%) & $0.515 \pm 0.06$ (82 \%) & $\mathbf{0.355 \pm 0.05}$ (88 \%)\\
-Uncertainty & $0.882 \pm 0.095$ (72 \%) & $0.761 \pm 0.086$ (76 \%) & $0.517 \pm 0.067$ (86 \%)\\
-InitialD & $\mathbf{0.608 \pm 0.055}$ (74 \%) & $\mathbf{0.376 \pm 0.027}$ (82 \%) & $\mathbf{0.302 \pm 0.023}$ (86 \%)\\
-Random & $0.842 \pm 0.09$ (70 \%) & $0.543 \pm 0.07$ (80 \%) & $\mathbf{0.387 \pm 0.051}$ (86 \%)\\ \bottomrule
+CAT & $0,757 \pm 0,082$ (67 \%) & $0,515 \pm 0,06$ (82 \%) & $\mathbf{0,355 \pm 0,05}$ (88 \%)\\
+Uncertainty & $0,882 \pm 0,095$ (72 \%) & $0,761 \pm 0,086$ (76 \%) & $0,517 \pm 0,067$ (86 \%)\\
+InitialD & $\mathbf{0,608 \pm 0,055}$ (74 \%) & $\mathbf{0,376 \pm 0,027}$ (82 \%) & $\mathbf{0,302 \pm 0,023}$ (86 \%)\\
+Random & $0,842 \pm 0,09$ (70 \%) & $0,543 \pm 0,07$ (80 \%) & $\mathbf{0,387 \pm 0,051}$ (86 \%)\\ \bottomrule
 \end{tabular}
 \caption{Valeurs de \emph{log loss} obtenues pour le jeu de données Fraction.}
 \label{initiald-fraction-mean-table}
@@ -237,10 +237,10 @@ Dans la figure \ref{initiald-fraction-mean}, InitialD est meilleur que les autr
 \centering
 \begin{tabular}{cccc} \toprule
 & Après 3 questions & Après 8 questions & Après 15 questions\\ \midrule
-CAT & $1.446 \pm 0.094$ & $1.015 \pm 0.101$ & $\mathbf{0.355 \pm 0.103}$\\
-Uncertainty & $1.495 \pm 0.103$ & $1.19 \pm 0.112$ & $0.638 \pm 0.119$\\
-InitialD & $1.355 \pm 0.08$ & $\mathbf{0.859 \pm 0.058}$ & $0.502 \pm 0.047$\\
-Random & $1.467 \pm 0.095$ & $1.075 \pm 0.089$ & $0.62 \pm 0.083$\\ \bottomrule
+CAT & $1,446 \pm 0,094$ & $1,015 \pm 0,101$ & $\mathbf{0,355 \pm 0,103}$\\
+Uncertainty & $1,495 \pm 0,103$ & $1,19 \pm 0,112$ & $0,638 \pm 0,119$\\
+InitialD & $1,355 \pm 0,08$ & $\mathbf{0,859 \pm 0,058}$ & $0,502 \pm 0,047$\\
+Random & $1,467 \pm 0,095$ & $1,075 \pm 0,089$ & $0,62 \pm 0,083$\\ \bottomrule
 \end{tabular}
 \caption{Distances au diagnostic final obtenues pour le jeu de données Fraction.}
 \label{initiald-fraction-delta-table}

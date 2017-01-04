@@ -34,11 +34,11 @@ Retour
 
 ### Caractéristiques de l'apprenant
 
-L'apprenant $i$ est modélisé par un vecteur $\mathbf{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$ de dimension $K$, où $\theta_{ik}$ représente son niveau selon chaque composante de connaissances $k$. Le niveau de l'apprenant selon une composante peut être positif, auquel cas ce paramètre participe à ce que l'apprenant réponde correctement aux questions qui requièrent cette composante. Il peut être négatif, auquel cas ce paramètre correspond à une lacune de l'apprenant, qui le pénalisera lorsqu'il répondra aux questions qui requièrent cette composante.
+L'apprenant $i$ est modélisé par un vecteur $\boldsymbol{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$ de dimension $K$, où $\theta_{ik}$ représente son niveau selon chaque composante de connaissances $k$. Le niveau de l'apprenant selon une composante peut être positif, auquel cas ce paramètre participe à ce que l'apprenant réponde correctement aux questions qui requièrent cette composante. Il peut être négatif, auquel cas ce paramètre correspond à une lacune de l'apprenant, qui le pénalisera lorsqu'il répondra aux questions qui requièrent cette composante.
 
 ### Caractéristiques des questions
 
-Au lieu d'associer à chaque question $j$ un vecteur de bits comme dans le modèle DINA, le modèle GenMA lui associe un vecteur de valeurs réelles $\mathbf{d_j} = (d_{j1}, \ldots, d_{jK})$, correspondant à des paramètres de discrimination selon chaque composante de connaissances, et un paramètre de facilité $\delta_j$.
+Au lieu d'associer à chaque question $j$ un vecteur de bits comme dans le modèle DINA, le modèle GenMA lui associe un vecteur de valeurs réelles $\boldsymbol{d_j} = (d_{j1}, \ldots, d_{jK})$, correspondant à des paramètres de discrimination selon chaque composante de connaissances, et un paramètre de facilité $\delta_j$.
 
 ### Modèle de diagnostic général
 
@@ -61,7 +61,7 @@ Lien avec MIRT
 :   Si la q-matrice ne contient que des 1, alors tous les $q_{jk}$ valent 1, donc la probabilité que l'apprenant $i$ réponde correctement à la question $j$ devient :
 
 \begin{equation}
-Pr(D_{ij} = 1) = \Phi\left(\sum_{k = 1}^K \theta_{ik} q_{jk} d_{jk} + \delta_j\right) = \Phi\left(\mathbf{\theta_i} \cdot \mathbf{d_j} + \delta_j\right)
+Pr(D_{ij} = 1) = \Phi\left(\sum_{k = 1}^K \theta_{ik} q_{jk} d_{jk} + \delta_j\right) = \Phi\left(\boldsymbol{\theta_i} \cdot \boldsymbol{d_j} + \delta_j\right)
 \end{equation}
 
 \noindent
@@ -78,7 +78,7 @@ Pr(D_{ij} = 1) = \Phi\left(\sum_{k = 1}^K \theta_{ik} q_{jk} d_{jk} + \delta_j\r
 \noindent
 qui est la loi de probabilité qui régit le modèle de Rasch, voir section \vref{irt}.
 
-La phase de calibrage d'un tel modèle conduit à une extraction des caractéristiques de chaque question $j$ : $\mathbf{d_j} = (d_{j1}, \ldots, d_{jk})$ et $\delta_j$ similaire à MIRT de dimension $d = K$ mais la q-matrice force une contrainte supplémentaire : pour chaque entrée nulle de la q-matrice $q_{jk}$, la composante correspondante dans la caractéristique de la question $j$ est nulle : si $q_{jk} = 0$, alors $d_{jk} = 0$. Ainsi, il y a moins de paramètres à estimer (voir figure \ref{fig-genma}).
+La phase de calibrage d'un tel modèle conduit à une extraction des caractéristiques de chaque question $j$ : $\boldsymbol{d_j} = (d_{j1}, \ldots, d_{jk})$ et $\delta_j$ similaire à MIRT de dimension $d = K$ mais la q-matrice force une contrainte supplémentaire : pour chaque entrée nulle de la q-matrice $q_{jk}$, la composante correspondante dans la caractéristique de la question $j$ est nulle : si $q_{jk} = 0$, alors $d_{jk} = 0$. Ainsi, il y a moins de paramètres à estimer (voir figure \ref{fig-genma}).
 
 Contrairement au modèle DINA, où il faut maîtriser toutes les composantes de connaissances mises en œuvre dans une question afin d'y répondre correctement[^1], le modèle de diagnostic général suppose que plus on maîtrise de composantes de connaissances mises en œuvre dans une question, plus grandes seront nos chances d'y répondre correctement. Et les paramètres de discrimination de chaque question permettent de favoriser certaines composantes plutôt que d'autres, dans le calcul de la probabilité de succès.
 
@@ -101,29 +101,29 @@ Dans un test, chaque question fait habituellement appel à peu de CC, c'est-à-d
 
 ## Initialisation des paramètres d'un nouvel apprenant
 
-Au début du test, on suppose que l'apprenant est de niveau nul : $\mathbf\theta = (0, \ldots, 0)$. Ainsi, pour chaque question $j$, la probabilité que l'apprenant y réponde correctement ne dépend que de son paramètre de facilité $\delta_j$.
+Au début du test, on suppose que l'apprenant est de niveau nul : $\boldsymbol{\theta} = (0, \ldots, 0)$. Ainsi, pour chaque question $j$, la probabilité que l'apprenant y réponde correctement ne dépend que de son paramètre de facilité $\delta_j$.
 
 ## Choix de la question suivante
 
 Pour le choix de la question suivante dans le modèle GenMA, nous choisissons de maximiser le déterminant de l'information de Fisher à chaque étape. Il s'agit de la règle D spécifiée à la section \vref{mirt}.
 
-Cela correspond à choisir la question qui va le plus réduire la variance sur le paramètre à estimer, c'est-à-dire les caractéristiques $\mathbf\theta$ de l'apprenant qui passe le test.
+Cela correspond à choisir la question qui va le plus réduire la variance sur le paramètre à estimer, c'est-à-dire les caractéristiques $\boldsymbol{\theta}$ de l'apprenant qui passe le test.
 
 ## Estimation des caractéristiques d'un nouvel apprenant
 
 Après que l'apprenant $i$ a répondu à une question, en fonction de sa réponse on calcule les paramètres $(\theta_{i1}, \ldots, \theta_{iK})$ les plus vraisemblables, c'est-à-dire son niveau selon chaque composante de connaissances.
 
-Pour cela, on calcule l'estimateur du maximum de vraisemblance, c'est-à-dire les paramètres $\mathbf{\theta_i}$ qui maximisent la probabilité d'observer ces résultats sachant $\mathbf{\theta_i}$ et l'expression de la probabilité que l'apprenant $i$ a répondu correctement à la question $j$, comme un modèle de type MIRT habituel, c'est-à-dire en utilisant une régression logistique.
+Pour cela, on calcule l'estimateur du maximum de vraisemblance, c'est-à-dire les paramètres $\boldsymbol{\theta_i}$ qui maximisent la probabilité d'observer ces résultats sachant $\boldsymbol{\theta_i}$ et l'expression de la probabilité que l'apprenant $i$ a répondu correctement à la question $j$, comme un modèle de type MIRT habituel, c'est-à-dire en utilisant une régression logistique.
 
 On suppose que le calibrage des questions a été effectué sur des données d'entraînement, et qu'on dispose des caractéristiques des questions dans une matrice $V$ de taille $m \times d$ dont la ligne $V_j$ correspond aux caractéristiques de la question $j$. À un certain moment du test, on a posé les questions $(q_1, \ldots, q_t)$ de caractéristiques $V_{q_1}, \ldots, V_{q_t}$ pour lesquelles on a observé les réponses $(r_1, \ldots, r_t) \in \{0, 1\}^t$ et on se demande quelle va être la performance de l'apprenant sur une certaine question $j$ de caractéristiques $V_j$.\nomenclature{$V$}{caractéristiques des questions dans MIRT, GenMA}
 
-On cherche donc à estimer les caractéristiques de l'apprenant $\hat{\mathbf{\theta}}$ tels que pour chaque $k = 1, \ldots, t$, $\Phi(\hat{\mathbf{\theta}} \cdot V_{q_k}) = r_k$. Ainsi, on pourra calculer la probabilité que l'apprenant réponde correctement à la question $j$ de caractéristiques $V_j$, donnée par l'expression $\Phi(\hat{\mathbf{\theta}} \cdot V_j)$.
+On cherche donc à estimer les caractéristiques de l'apprenant $\hat{\boldsymbol{\theta}}$ tels que pour chaque $k = 1, \ldots, t$, $\Phi(\hat{\boldsymbol{\theta}} \cdot V_{q_k}) = r_k$. Ainsi, on pourra calculer la probabilité que l'apprenant réponde correctement à la question $j$ de caractéristiques $V_j$, donnée par l'expression $\Phi(\hat{\boldsymbol{\theta}} \cdot V_j)$.
 
 Il s'agit d'un problème d'apprentissage automatique, appelé *classification binaire*. Le modèle MIRT permet de résoudre ce problème en faisant une régression logistique.
 
 Régression logistique
 
-:   Le modèle de régression logistique est utilisé pour la prédiction de variables dichotomiques (vrai ou faux), telles que les réponses des apprenants dans notre cas. Lorsqu'on a $n$ éléments de dimension $d$ $(\mathbf{x_1}, \ldots, \mathbf{x_n})$ pour lesquels on observe des résultats vrai/faux $\mathbf{y} = (y_1, \ldots, y_n) \in \{0, 1\}^n$, la régression logistique consiste à estimer un paramètre $\mathbf{\theta} \in \R^d$ tel que $\Phi(\mathbf{\theta}^T X) = \mathbf{y}$ où $X$ est la matrice ayant pour lignes les vecteurs $(\mathbf{x_1}, \ldots, \mathbf{x_n})$. Ce modèle est apprécié pour sa propriété de généralisation à partir de peu de données.
+:   Le modèle de régression logistique est utilisé pour la prédiction de variables dichotomiques (vrai ou faux), telles que les réponses des apprenants dans notre cas. Lorsqu'on a $n$ éléments de dimension $d$ $(\mathbf{x_1}, \ldots, \mathbf{x_n})$ pour lesquels on observe des résultats vrai/faux $\mathbf{y} = (y_1, \ldots, y_n) \in \{0, 1\}^n$, la régression logistique consiste à estimer un paramètre $\boldsymbol{\theta} \in \R^d$ tel que $\Phi(\boldsymbol{\theta}^T X) = \mathbf{y}$ où $X$ est la matrice ayant pour lignes les vecteurs $(\mathbf{x_1}, \ldots, \mathbf{x_n})$. Ce modèle est apprécié pour sa propriété de généralisation à partir de peu de données.
 
 Notre problème est directement encodable ainsi :
 
@@ -135,7 +135,7 @@ Notre problème est directement encodable ainsi :
 
 \label{genma-feedback}
 
-À la fin du test, l'apprenant reçoit un diagnostic sous la forme de valeurs de niveau selon chaque composante de connaissances (CC). Il s'agit du vecteur $\mathbf{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$. Si la valeur $\theta_{ik}$ selon la CC $k$ est négative, il s'agit d'une lacune. Sinon, il s'agit d'un degré de maîtrise.
+À la fin du test, l'apprenant reçoit un diagnostic sous la forme de valeurs de niveau selon chaque composante de connaissances (CC). Il s'agit du vecteur $\boldsymbol{\theta_i} = (\theta_{i1}, \ldots, \theta_{iK})$. Si la valeur $\theta_{ik}$ selon la CC $k$ est négative, il s'agit d'une lacune. Sinon, il s'agit d'un degré de maîtrise.
 
 Contrairement à un modèle de type MIRT habituel, complètement automatique et où il faudrait interpréter les composantes a posteriori, le modèle GenMA a été calibré de façon que chaque dimension corresponde à une colonne de la q-matrice spécifiée par un expert, donc à une CC bien définie. Ainsi, les composantes du vecteur de niveau sont directement interprétables. GenMA est donc un modèle formatif : le diagnostic qu'il fait à l'apprenant est plus utile pour la progression de l'apprenant qu'un simple score, car il indique ses éventuels points forts et lacunes.
 
@@ -152,6 +152,7 @@ Comme indiqué à la section \vref{genma-feedback}, le modèle GenMA est interp
 Cette spécification permet en outre d'accélérer la convergence, car il y a moins de paramètres à estimer que dans un modèle général de type MIRT. Si la matrice a en moyenne $k$ entrées non nulles par ligne, GenMA estime pour ses questions $kn$ paramètres de discrimination et $n$ paramètres de facilité.
 
 \begin{table}
+\centering
 \begin{tabular}{cccccc} \toprule
 & Dimension & Calibrage & De zéro & Nombre de paramètres\\ \midrule
 Rasch & 1 & Auto & Non & $n$\\
@@ -224,10 +225,10 @@ Sur chacun des jeux de données testés, GenMA a un plus grand pouvoir prédicti
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 7 questions & Après 10 questions\\ \midrule
-Rasch & $0.469 \pm 0.017$ (79 \%) & $0.457 \pm 0.017$ (79 \%) & $0.446 \pm 0.016$ (79 \%)\\
-DINA & $0.441 \pm 0.014$ (80 \%) & $0.41 \pm 0.014$ (82 \%) & $0.406 \pm 0.014$ (82 \%)\\
-MIRT & $0.368 \pm 0.014$ (83 \%) & $0.325 \pm 0.012$ (86 \%) & $0.316 \pm 0.011$ (86 \%)\\
-GenMA & $0.459 \pm 0.023$ (79 \%) & $0.355 \pm 0.017$ (85 \%) & $0.294 \pm 0.013$ (88 \%)\\ \bottomrule
+Rasch & $0,469 \pm 0,017$ (79 \%) & $0,457 \pm 0,017$ (79 \%) & $0,446 \pm 0,016$ (79 \%)\\
+DINA & $0,441 \pm 0,014$ (80 \%) & $0,41 \pm 0,014$ (82 \%) & $0,406 \pm 0,014$ (82 \%)\\
+MIRT & $0,368 \pm 0,014$ (83 \%) & $0,325 \pm 0,012$ (86 \%) & $0,316 \pm 0,011$ (86 \%)\\
+GenMA & $0,459 \pm 0,023$ (79 \%) & $0,355 \pm 0,017$ (85 \%) & $0,294 \pm 0,013$ (88 \%)\\ \bottomrule
 \end{tabular}
 \caption{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données Fraction. Entre parenthèses, le nombre de questions prédites correctement.}
 \label{genma-fraction-table}
@@ -252,10 +253,10 @@ Les modèles Rasch, MIRT et DINA convergent en 4 ou 5 questions tandis que GenMA
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 8 questions & Après 12 questions\\ \midrule
-DINA & $0.535 \pm 0.003$ (73 \%) & $0.526 \pm 0.003$ (74 \%) & $0.523 \pm 0.003$ (74 \%)\\
-MIRT & $0.509 \pm 0.005$ (76 \%) & $0.496 \pm 0.005$ (76 \%) & $0.489 \pm 0.005$ (77 \%)\\
-GenMA & $0.532 \pm 0.005$ (73 \%) & $0.507 \pm 0.004$ (75 \%) & $0.498 \pm 0.004$ (76 \%)\\
-Rasch & $0.537 \pm 0.005$ (73 \%) & $0.527 \pm 0.005$ (74 \%) & $0.522 \pm 0.005$ (74 \%)\\ \bottomrule
+DINA & $0,535 \pm 0,003$ (73 \%) & $0,526 \pm 0,003$ (74 \%) & $0,523 \pm 0,003$ (74 \%)\\
+MIRT & $0,509 \pm 0,005$ (76 \%) & $0,496 \pm 0,005$ (76 \%) & $0,489 \pm 0,005$ (77 \%)\\
+GenMA & $0,532 \pm 0,005$ (73 \%) & $0,507 \pm 0,004$ (75 \%) & $0,498 \pm 0,004$ (76 \%)\\
+Rasch & $0,537 \pm 0,005$ (73 \%) & $0,527 \pm 0,005$ (74 \%) & $0,522 \pm 0,005$ (74 \%)\\ \bottomrule
 \end{tabular}
 \caption{Valeurs obtenues pour le jeu de données ECPE.}
 \label{genma-ecpe-table}
@@ -273,34 +274,34 @@ Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 \multicolumn{5}{c}{\textnormal{q-matrice}} & \multirow{2}{*}{\textnormal{taux de succès}} \\ \cmidrule(r){1-5}
 \multicolumn{3}{c}{\textnormal{entrées}} & \textnormal{chance} & \multicolumn{1}{c}{\textnormal{inattention}} & \\ \midrule
 %\hline
-1 & 1 & 0 & 0.705 & 0.085 & 80 \%\\
-0 & 1 & 0 & 0.724 & 0.101 & 83 \%\\
-1 & 0 & 1 & 0.438 & 0.266 & 57 \%\\
-0 & 0 & 1 & 0.480 & 0.162 & 70 \%\\
-0 & 0 & 1 & 0.764 & 0.040 & 88 \%\\
-0 & 0 & 1 & 0.717 & 0.066 & 85 \%\\
-1 & 0 & 1 & 0.544 & 0.085 & 72 \%\\
-0 & 1 & 0 & 0.802 & 0.040 & 89 \%\\
-0 & 0 & 1 & 0.534 & 0.199 & 70 \%\\
-1 & 0 & 0 & 0.483 & 0.163 & 65 \%\\
-1 & 0 & 1 & 0.556 & 0.099 & 72 \%\\
-1 & 0 & 1 & 0.195 & 0.305 & 43 \%\\
-1 & 0 & 0 & 0.633 & 0.122 & 75 \%\\
-1 & 0 & 0 & 0.517 & 0.212 & 65 \%\\
-0 & 0 & 1 & 0.749 & 0.040 & 88 \%\\
-1 & 0 & 1 & 0.549 & 0.126 & 70 \%\\
-\textbf0 & \textbf1 & \textbf1 & \textbf{0.816} & \textbf{0.058} & \textbf{88 \%}\\
-0 & 0 & 1 & 0.729 & 0.086 & 84 \%\\
-0 & 0 & 1 & 0.473 & 0.150 & 71 \%\\
-1 & 0 & 1 & 0.239 & 0.295 & 46 \%\\
-1 & 0 & 1 & 0.621 & 0.097 & 75 \%\\
-0 & 0 & 1 & 0.322 & 0.188 & 63 \%\\
-0 & 1 & 0 & 0.637 & 0.075 & 81 \%\\
-0 & 1 & 0 & 0.313 & 0.322 & 53 \%\\
-1 & 0 & 0 & 0.512 & 0.272 & 61 \%\\
-0 & 0 & 1 & 0.555 & 0.211 & 70 \%\\
-1 & 0 & 0 & 0.265 & 0.369 & 44 \%\\
-0 & 0 & 1 & 0.659 & 0.086 & 81 \%\\ \bottomrule
+1 & 1 & 0 & 0,705 & 0,085 & 80 \%\\
+0 & 1 & 0 & 0,724 & 0,101 & 83 \%\\
+1 & 0 & 1 & 0,438 & 0,266 & 57 \%\\
+0 & 0 & 1 & 0,480 & 0,162 & 70 \%\\
+0 & 0 & 1 & 0,764 & 0,040 & 88 \%\\
+0 & 0 & 1 & 0,717 & 0,066 & 85 \%\\
+1 & 0 & 1 & 0,544 & 0,085 & 72 \%\\
+0 & 1 & 0 & 0,802 & 0,040 & 89 \%\\
+0 & 0 & 1 & 0,534 & 0,199 & 70 \%\\
+1 & 0 & 0 & 0,483 & 0,163 & 65 \%\\
+1 & 0 & 1 & 0,556 & 0,099 & 72 \%\\
+1 & 0 & 1 & 0,195 & 0,305 & 43 \%\\
+1 & 0 & 0 & 0,633 & 0,122 & 75 \%\\
+1 & 0 & 0 & 0,517 & 0,212 & 65 \%\\
+0 & 0 & 1 & 0,749 & 0,040 & 88 \%\\
+1 & 0 & 1 & 0,549 & 0,126 & 70 \%\\
+\textbf0 & \textbf1 & \textbf1 & \textbf{0,816} & \textbf{0,058} & \textbf{88 \%}\\
+0 & 0 & 1 & 0,729 & 0,086 & 84 \%\\
+0 & 0 & 1 & 0,473 & 0,150 & 71 \%\\
+1 & 0 & 1 & 0,239 & 0,295 & 46 \%\\
+1 & 0 & 1 & 0,621 & 0,097 & 75 \%\\
+0 & 0 & 1 & 0,322 & 0,188 & 63 \%\\
+0 & 1 & 0 & 0,637 & 0,075 & 81 \%\\
+0 & 1 & 0 & 0,313 & 0,322 & 53 \%\\
+1 & 0 & 0 & 0,512 & 0,272 & 61 \%\\
+0 & 0 & 1 & 0,555 & 0,211 & 70 \%\\
+1 & 0 & 0 & 0,265 & 0,369 & 44 \%\\
+0 & 0 & 1 & 0,659 & 0,086 & 81 \%\\ \bottomrule
 \end{tabular}
 \caption{Paramètres d'inattention et de chance pour la q-matrice du jeu de données ECPE. Les valeurs les plus hautes sont indiquées en gras.}
 \label{guess}
@@ -321,10 +322,10 @@ Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 8 questions & Après 11 questions\\ \midrule
-Rasch & $0.576 \pm 0.008$ (70 \%) & $0.559 \pm 0.008$ (71 \%) & $0.555 \pm 0.008$ (71 \%)\\
-DINA & $0.588 \pm 0.005$ (68 \%) & $0.57 \pm 0.006$ (70 \%) & $0.566 \pm 0.006$ (70 \%)\\
-GenMA & $0.537 \pm 0.006$ (72 \%) & $0.505 \pm 0.006$ (75 \%) & $0.487 \pm 0.006$ (77 \%)\\
-MIRT & $0.53 \pm 0.008$ (73 \%) & $0.509 \pm 0.008$ (75 \%) & $0.503 \pm 0.008$ (75 \%)\\ \bottomrule
+Rasch & $0,576 \pm 0,008$ (70 \%) & $0,559 \pm 0,008$ (71 \%) & $0,555 \pm 0,008$ (71 \%)\\
+DINA & $0,588 \pm 0,005$ (68 \%) & $0,57 \pm 0,006$ (70 \%) & $0,566 \pm 0,006$ (70 \%)\\
+GenMA & $0,537 \pm 0,006$ (72 \%) & $0,505 \pm 0,006$ (75 \%) & $0,487 \pm 0,006$ (77 \%)\\
+MIRT & $0,53 \pm 0,008$ (73 \%) & $0,509 \pm 0,008$ (75 \%) & $0,503 \pm 0,008$ (75 \%)\\ \bottomrule
 \end{tabular}
 \caption{Valeurs obtenues sur le jeu de données TIMSS.}
 \label{genma-timss-table}
