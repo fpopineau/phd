@@ -11,6 +11,7 @@
 %\usepackage[libertine={Ligatures=TeX,RawFeature=+onum},
 %            biolinum={Ligatures=TeX,RawFeature=+onum}]{libertineotf}
 \usepackage{libertine}
+\usepackage{microtype}
 \setmathfont{TeX Gyre Pagella Math}
 \fi
 \usepackage[english,french]{babel}
@@ -27,8 +28,11 @@
 \usepackage{graphicx,array,booktabs,multirow}
 \usepackage[french]{varioref}
 \usepackage{multicol}
-\usepackage[colorlinks=true,linkcolor=black,citecolor=blue]{hyperref}
 \usepackage[french=guillemets]{csquotes}
+
+\usepackage[a-1b]{pdfx}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=blue}
+
 \usepackage[style=authoryear,natbib=true,backend=biber,backref=true,maxcitenames=3,maxbibnames=99,babel=other]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
 \DefineBibliographyExtras{french}{\restorecommand\mkbibnamelast}
@@ -51,7 +55,6 @@
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\headheight}{15pt}
 
-\usepackage[a-1b]{pdfx}
 
 \newtheorem{algo}[equation]{Algorithme}
 \algtext*{EndProcedure}

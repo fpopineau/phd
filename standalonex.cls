@@ -8,15 +8,18 @@
 \fi
 \LoadClassWithOptions{standalone}
 \ifluatex
-\RequirePackage{fontspec}
 
+\RequirePackage{mathtools}
+\RequirePackage{unicode-math}
+\RequirePackage{libertine}
 % Fonts option 1
 % \setmainfont{Times New Roman}
 
 % Fonts option 2
-\setmainfont{Linux Libertine O}
-\setsansfont{Linux Biolinum O}
-\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+%\setmainfont{Linux Libertine O}
+%\setsansfont{Linux Biolinum O}
+%\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\setmathfont{TeX Gyre Pagella Math}
 %\setmathfont{Asana Math}
 
 \fi
