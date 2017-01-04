@@ -372,14 +372,14 @@ Les résultats sont donnés dans les figures \ref{comp-sat} à \ref{comp-timss
 \def\reducefigs{0.8}
 
 <!-- results/sat2 -->
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\reducefigs\linewidth]{figures/comp/sat-mean}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données SAT.}
 \label{comp-sat}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{cccc} \toprule
 & Après 10 questions & Après 15 questions\\ \midrule
@@ -399,14 +399,14 @@ Nous faisons l'hypothèse que comme ce jeu de données est multidisciplinaire et
 ### ECPE
 
 <!-- results/ecpe -->
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\reducefigs\linewidth]{figures/comp/ecpe-mean}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données ECPE.}
 \label{comp-ecpe}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ccc} \toprule
 & Après 5 questions & Après 10 questions\\ \midrule
@@ -426,14 +426,14 @@ Nous faisons l'hypothèse que comme le jeu de données a beaucoup de motifs de r
 ### Fraction
 
 <!-- results/fraction-auto-5 -->
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\reducefigs\linewidth]{figures/comp/fraction-mean}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données Fraction.}
 \label{comp-fraction}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ccc} \toprule
 & Après 4 questions & Après 7 questions\\ \midrule
@@ -451,14 +451,14 @@ Nous faisons l'hypothèse que comme il s'agit d'un jeu de données de soustracti
 ### TIMSS
 
 <!-- results/timss2003 -->
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\reducefigs\linewidth]{figures/comp/timss-mean}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données TIMSS.}
 \label{comp-timss}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ccc} \toprule
 & After 4 questions & After 8 questions\\ \midrule
@@ -478,14 +478,14 @@ Nous faisons l'hypothèse que ces jeux de données se ressemblent : il y a beauc
 ### Castor
 
 <!-- results/castor -->
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\reducefigs\linewidth]{figures/comp/castor-mean}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données Castor.}
 \label{comp-castor}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ccc} \toprule
 & Après 4 questions & Après 8 questions\\ \midrule

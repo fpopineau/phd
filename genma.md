@@ -212,16 +212,18 @@ Sur chacun des jeux de données testés, GenMA a un plus grand pouvoir prédicti
 
 ### Fraction
 
-\begin{figure}[h]
+Dans le jeu de données Fraction, 4 questions sur 10 sont suffisantes pour prédire correctement 80 % en moyenne des réponses sur les 10 questions de l'ensemble de validation (voir table \ref{genma-fraction-table}).
+
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/fraction-mean}
 %\includegraphics[width=0.5\textwidth]{figures/genma/fraction-count}
 \caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données Fraction.}
 \label{genma-fraction}
-\end{figure}
+%\end{figure}
 
-\begin{table}[h]
-\centering
+%\begin{table}[ht]
+%\centering
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 7 questions & Après 10 questions\\ \midrule
@@ -230,17 +232,16 @@ DINA & $0,441 \pm 0,014$ (80 \%) & $0,41 \pm 0,014$ (82 \%) & $0,406 \pm 0,014$ 
 MIRT & $0,368 \pm 0,014$ (83 \%) & $0,325 \pm 0,012$ (86 \%) & $0,316 \pm 0,011$ (86 \%)\\
 GenMA & $0,459 \pm 0,023$ (79 \%) & $0,355 \pm 0,017$ (85 \%) & $0,294 \pm 0,013$ (88 \%)\\ \bottomrule
 \end{tabular}
-\caption{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données Fraction. Entre parenthèses, le nombre de questions prédites correctement.}
+\captionof{table}{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données Fraction. Entre parenthèses, le nombre de questions prédites correctement.}
 \label{genma-fraction-table}
-\end{table}
-
-Dans le jeu de données Fraction, 4 questions sur 10 sont suffisantes pour prédire correctement 80 % en moyenne des réponses sur les 10 questions de l'ensemble de validation (voir table \ref{genma-fraction-table}).
+%\end{table}
+\end{figure}
 
 Les modèles Rasch, MIRT et DINA convergent en 4 ou 5 questions tandis que GenMA continue à apprendre car c'est un modèle de plus grande dimension que les autres. DINA est de dimension 8 comme GenMA mais c'est un modèle discret.
 
 ### ECPE
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/ecpe-mean}
 %\includegraphics[width=0.5\textwidth]{figures/genma/ecpe-count}
@@ -248,7 +249,7 @@ Les modèles Rasch, MIRT et DINA convergent en 4 ou 5 questions tandis que GenMA
 \label{genma-ecpe}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \small
 \begin{tabular}{cccc} \toprule
@@ -309,7 +310,7 @@ Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 
 ### TIMSS
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \small
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/timss-mean}
@@ -318,7 +319,7 @@ Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 \label{genma-timss}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 8 questions & Après 11 questions\\ \midrule
