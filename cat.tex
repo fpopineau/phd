@@ -10,17 +10,17 @@
 \ifluatex
 \usepackage{mathtools}
 \usepackage{unicode-math}
-%\usepackage[libertine={Ligatures=TeX,RawFeature=+onum},
-%            biolinum={Ligatures=TeX,RawFeature=+onum}]{libertineotf}
 \usepackage{libertine}
-\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
-\usepackage{microtype}
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[BoldFont=TeX Gyre Pagella Bold Italic,range=\mathit/{latin,Latin,greek,Greek,num}]{TeX Gyre Pagella Italic}
 \setmathfont[range=\setminus]{Asana Math}
+%\usepackage[libertine={Ligatures=TeX,RawFeature=+onum},
+%            biolinum={Ligatures=TeX,RawFeature=+onum}]{libertineotf}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\usepackage{microtype}
 \fi
 \usepackage[english,french]{babel}
-%\DecimalMathComma
+\DecimalMathComma
 \usepackage{fancyhdr}
 \usepackage[pass]{geometry}
 \usepackage{algorithm}
@@ -53,8 +53,8 @@
 \def\Tito{Lê Thành D\~{u}ng Nguy\~{ê}n}
 \def\Gambaru{{\J 頑張る}}
 
-%\definecolor{aquali}{cmyk}{1,0.0474,0,0.255}
-%\hypersetup{colorlinks=true,urlcolor=aquali,linkcolor=black,citecolor=blue}
+\definecolor{aquali}{cmyk}{1,0.0474,0,0.255}
+\hypersetup{colorlinks=true,urlcolor=aquali,linkcolor=black,citecolor=blue}
 
 % \usepackage{titlesec}
 % \titleformat{\chapter}[display]
@@ -163,3 +163,8 @@
 \input{style-abstracten}
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -218,7 +218,7 @@ Dans le jeu de données Fraction, 4 questions sur 10 sont suffisantes pour préd
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/fraction-mean}
 %\includegraphics[width=0.5\textwidth]{figures/genma/fraction-count}
-\caption{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données Fraction.}
+\captionof{figure}{Évolution de la \emph{log loss} moyenne de prédiction en fonction du nombre de questions posées, pour le jeu de données Fraction.}
 \label{genma-fraction}
 %\end{figure}
 
@@ -239,18 +239,16 @@ GenMA & $0,459 \pm 0,023$ (79 \%) & $0,355 \pm 0,017$ (85 \%) & $0,294 \pm 0,013
 
 Les modèles Rasch, MIRT et DINA convergent en 4 ou 5 questions tandis que GenMA continue à apprendre car c'est un modèle de plus grande dimension que les autres. DINA est de dimension 8 comme GenMA mais c'est un modèle discret.
 
-### ECPE
-
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/ecpe-mean}
 %\includegraphics[width=0.5\textwidth]{figures/genma/ecpe-count}
-\caption{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données ECPE.}
+\captionof{figure}{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données ECPE.}
 \label{genma-ecpe}
-\end{figure}
+%\end{figure}
 
-\begin{table}[ht]
-\centering
+%\begin{table}[ht]
+%\centering
 \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 8 questions & Après 12 questions\\ \midrule
@@ -259,17 +257,15 @@ MIRT & $0,509 \pm 0,005$ (76 \%) & $0,496 \pm 0,005$ (76 \%) & $0,489 \pm 0,005$
 GenMA & $0,532 \pm 0,005$ (73 \%) & $0,507 \pm 0,004$ (75 \%) & $0,498 \pm 0,004$ (76 \%)\\
 Rasch & $0,537 \pm 0,005$ (73 \%) & $0,527 \pm 0,005$ (74 \%) & $0,522 \pm 0,005$ (74 \%)\\ \bottomrule
 \end{tabular}
-\caption{Valeurs obtenues pour le jeu de données ECPE.}
+\captionof{table}{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données Fraction. Entre parenthèses, le nombre de questions prédites correctement.}{Valeurs obtenues pour le jeu de données ECPE.}
 \label{genma-ecpe-table}
-\end{table}
+\end{figure}
+
+### ECPE
 
 Dans la figure \ref{genma-ecpe}, DINA et Rasch ont une performance similaire, ce qui est surprenant étant donné que Rasch ne requiert aucune connaissance du domaine. Nous supposons que cela apparaît car il n'y a que 3 CC décrites dans la q-matrice, donc le nombre d'états possibles pour un apprenant est $2^3 = 8$ pour $2^{28}$ motifs de réponse possibles. Ainsi, les paramètres d'inattention et de chance sont très hauts (voir la table \ref{guess}), ce qui explique pourquoi l'information gagnée à chaque question est basse. Par exemple, la question qui requiert les CC 2 et 3 a un grand taux de succès de 88 %, ce qui rend cette question plus facile à résoudre que d'autres questions qui ne requièrent que la CC 2 ou 3, donc le seul moyen pour le modèle DINA d'exprimer ce comportement est d'accroître le paramètre de chance. À l'inverse, GenMA est un modèle plus expressif.
 
-MIRT à 2 dimensions a un taux d'erreur plus faible que GenMA, ce qui laisse entendre qu'un modèle prédictif n'est pas nécessairement explicatif. Toutefois afin de faire un retour à l'utilisateur, notre modèle fait un diagnostic correspondant davantage à la réalité qu'un modèle DINA basé sur les q-matrices.
-
-Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
-
-\begin{table}
+\begin{table}[hbt]
 \centering
 \begin{tabular}{C{5mm}C{5mm}C{5mm}ccc} \toprule
 \multicolumn{5}{c}{\textnormal{q-matrice}} & \multirow{2}{*}{\textnormal{taux de succès}} \\ \cmidrule(r){1-5}
@@ -308,19 +304,21 @@ Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 \label{guess}
 \end{table}
 
-### TIMSS
+MIRT à 2 dimensions a un taux d'erreur plus faible que GenMA, ce qui laisse entendre qu'un modèle prédictif n'est pas nécessairement explicatif. Toutefois afin de faire un retour à l'utilisateur, notre modèle fait un diagnostic correspondant davantage à la réalité qu'un modèle DINA basé sur les q-matrices.
+
+Nous faisons l'hypothèse que la q-matrice a été mal spécifiée.
 
 \begin{figure}[ht]
 \small
 \centering
 \includegraphics[width=0.8\textwidth]{figures/genma/timss-mean}
 %\includegraphics[width=0.5\textwidth]{figures/genma/timss-count}
-\caption{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données TIMSS.}
+\captionof{figure}{Évolution de la \emph{log loss} en fonction du nombre de questions posées, pour le jeu de données TIMSS.}
 \label{genma-timss}
-\end{figure}
+% \end{figure}
 
-\begin{table}[ht]
-\small
+% \begin{table}[ht]
+% \small
 \begin{tabular}{cccc} \toprule
 & Après 4 questions & Après 8 questions & Après 11 questions\\ \midrule
 Rasch & $0,576 \pm 0,008$ (70 \%) & $0,559 \pm 0,008$ (71 \%) & $0,555 \pm 0,008$ (71 \%)\\
@@ -328,9 +326,12 @@ DINA & $0,588 \pm 0,005$ (68 \%) & $0,57 \pm 0,006$ (70 \%) & $0,566 \pm 0,006$ 
 GenMA & $0,537 \pm 0,006$ (72 \%) & $0,505 \pm 0,006$ (75 \%) & $0,487 \pm 0,006$ (77 \%)\\
 MIRT & $0,53 \pm 0,008$ (73 \%) & $0,509 \pm 0,008$ (75 \%) & $0,503 \pm 0,008$ (75 \%)\\ \bottomrule
 \end{tabular}
-\caption{Valeurs obtenues sur le jeu de données TIMSS.}
+\captionof{table}{Valeurs obtenues sur le jeu de données TIMSS.}
 \label{genma-timss-table}
-\end{table}
+\end{figure}
+
+
+### TIMSS
 
 Dans la figure \ref{genma-timss}, Rasch a une erreur plus faible que DINA. Dès 4 questions, GenMA a une erreur beaucoup plus faible, comparable à celle obtenue par MIRT.
 

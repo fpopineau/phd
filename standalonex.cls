@@ -8,7 +8,7 @@
 \fi
 \LoadClassWithOptions{standalone}
 \ifluatex
-
+\pdfminorversion=4
 \RequirePackage{mathtools}
 \RequirePackage{unicode-math}
 \RequirePackage{libertine}
