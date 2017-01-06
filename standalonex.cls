@@ -20,6 +20,18 @@
 %\setsansfont{Linux Biolinum O}
 %\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
 \setmathfont{TeX Gyre Pagella Math}
+% \setmathfont[BoldFont=TeX Gyre Pagella Bold Italic,range=\mathit/{latin,Latin,greek,Greek,num}]{TeX Gyre Pagella Italic}
+\setmathfont[range=\mathup,
+    BoldFont=Linux Libertine O Bold,
+    BoldItalicFont=Linux Libertine O Bold Italic]
+    {Linux Libertine O}
+\setmathfont[range=\mathit,
+    BoldFont=Linux Libertine O Bold Italic]
+    {Linux Libertine O}
+\setmathfont[range=\mathbfup]{Linux Libertine O Bold}
+\setmathfont[range=\mathbfit]{Linux Libertine O Bold Italic}
+\setmathfont[range=\setminus]{Asana Math}
+
 %\setmathfont{Asana Math}
 
 \fi
